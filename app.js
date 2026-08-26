@@ -89,6 +89,7 @@ async function enterApp(user) {
   $("appView").classList.remove("hidden");
   $("nav").classList.remove("hidden");
   await loadQuestions();
+  await loadDashboard();
 }
 
 function exitApp() {
