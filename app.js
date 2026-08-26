@@ -59,7 +59,7 @@ async function init() {
       result = await sb.auth.signInWithPassword({ email, password });
       if (result.error) return setMessage($("authMessage"), result.error.message, "error");
     }
-    await enterApp(result.data.user || (await supabase.auth.getUser()).data.user);
+    await enterApp(result.data.user || (await sb.auth.getUser()).data.user);
   });
 
   document.querySelectorAll("[data-view]").forEach(btn => {
