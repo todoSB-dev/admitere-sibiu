@@ -46,7 +46,7 @@ async function init() {
     setMessage($("authMessage"), "Se procesează...");
     let result;
     if (mode === "signup") {
-      result = await supabase.auth.signUp({
+      result = await sb.auth.signUp({
         email,
         password,
         options: { data: { full_name: fullName } }
@@ -56,7 +56,7 @@ async function init() {
         return setMessage($("authMessage"), "Cont creat. Verifică emailul și apoi autentifică-te.", "success");
       }
     } else {
-      result = await supabase.auth.signInWithPassword({ email, password });
+      result = await sb.auth.signInWithPassword({ email, password });
       if (result.error) return setMessage($("authMessage"), result.error.message, "error");
     }
     await enterApp(result.data.user || (await supabase.auth.getUser()).data.user);
@@ -67,18 +67,18 @@ async function init() {
   });
 
   $("logoutBtn").onclick = async () => {
-    await supabase.auth.signOut();
+    await sb.auth.signOut();
   };
 
   $("checkBtn").onclick = submitAnswer;
   $("nextBtn").onclick = nextQuestion;
 
-  supabase.auth.onAuthStateChange(async (_event, session) => {
+  sb.auth.onAuthStateChange(async (_event, session) => {
     if (session?.user) await enterApp(session.user);
     else exitApp();
   });
 
-  const { data } = await supabase.auth.getSession();
+  const { data } = await sb.auth.getSession();
   if (data.session?.user) await enterApp(data.session.user);
 }
 
@@ -103,7 +103,7 @@ function exitApp() {
 async function loadQuestions() {
   // Pentru MVP: citim întrebările publicate. Dacă vrei să testezi imediat cele 20
   // de întrebări draft, rulează politica SQL din README.
-  const { data, error } = await supabase
+  const { data, error } = await sb
     .from("questions")
     .select("id,text,options,correct_index,explanation,difficulty,subject_id,chapter_id,subjects(name),chapters(name)")
     .in("review_status", ["draft", "verified", "published"])
