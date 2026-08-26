@@ -196,19 +196,52 @@ function nextQuestion() {
   currentIndex = (currentIndex + 1) % questions.length;
   renderQuestion();
 }
-
 async function loadDashboard() {
   if (!currentUser) return;
-  const { data, error } = await supabase
+
+  const { data, error } = await sb
     .from("answers")
-    .select("*")
+    .select("is_correct")
     .eq("user_id", currentUser.id);
-  
 
   if (error) {
-  alert(error.message);
-  return;
+    alert("Eroare dashboard: " + error.message);
+    return;
+  }
+
+  const answers = Array.isArray(data) ? data : [];
+
+  const answered = answers.length;
+
+  const correct = answers.filter(
+    answer => answer.is_correct === true
+  ).length;
+
+  const accuracy = answered > 0
+    ? Math.round((correct / answered) * 100)
+    : 0;
+
+  document.getElementById("statAnswered").textContent = answered;
+  document.getElementById("statCorrect").textContent = correct;
+  document.getElementById("statAccuracy").textContent = accuracy + "%";
+
+  const hint = document.getElementById("dashboardHint");
+
+  if (answered === 0) {
+    hint.textContent =
+      "Rezolvă câteva grile pentru a primi o recomandare.";
+  } else if (accuracy >= 85) {
+    hint.textContent =
+      "Foarte bine. Poți crește dificultatea și trece la simulări.";
+  } else if (accuracy >= 70) {
+    hint.textContent =
+      "Bun început. Reia întrebările greșite și lucrează pe capitole.";
+  } else {
+    hint.textContent =
+      "Concentrează-te pe explicațiile întrebărilor greșite înainte de o nouă simulare.";
+  }
 }
+
   alert("ID: " + currentUser.id + "\nRăspunsuri găsite: " + (data?.length ?? "NULL"));
   const answered = data?.length || 0;
   const correct = data?.filter(x => x.is_correct).length || 0;
