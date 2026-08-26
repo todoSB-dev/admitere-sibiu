@@ -20,7 +20,7 @@ function setMessage(el, text, type="") {
 
 function showView(name) {
   ["practice","dashboard","mistakes"].forEach(v => $(`${v}View`).classList.toggle("hidden", v !== name));
-  if (name === "dashboard") alert("DASHBOARD PORNIT");
+  if (name === "dashboard") loadDashboard();
   if (name === "mistakes") loadMistakes();
 }
 
