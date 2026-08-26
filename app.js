@@ -179,7 +179,7 @@ async function submitAnswer() {
   feedback.className = `feedback ${correct ? "good" : "bad"}`;
   feedback.innerHTML = `<strong>${correct ? "Corect!" : "Greșit."}</strong><br>${escapeHtml(q.explanation)}`;
 
-  const { error } = await supabase.from("answers").insert({
+  const { error } = await sb.from("answers").insert({
     user_id: currentUser.id,
     question_id: q.id,
     selected_index: selectedIndex,
