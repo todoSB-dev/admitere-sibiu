@@ -197,7 +197,7 @@ async function loadDashboard() {
   if (!currentUser) return;
   const { data, error } = await supabase
     .from("answers")
-    .select("is_correct")
+    .select("*")
     .eq("user_id", currentUser.id);
 
   if (error) return setGlobal(error.message, true);
