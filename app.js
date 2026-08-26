@@ -200,12 +200,13 @@ async function loadDashboard() {
     .from("answers")
     .select("*")
     .eq("user_id", currentUser.id);
-  alert("ID: " + currentUser.id + "\nRăspunsuri găsite: " + (data?.length ?? "NULL"));
+  
 
   if (error) {
   alert(error.message);
   return;
 }
+  alert("ID: " + currentUser.id + "\nRăspunsuri găsite: " + (data?.length ?? "NULL"));
   const answered = data?.length || 0;
   const correct = data?.filter(x => x.is_correct).length || 0;
   const accuracy = answered ? Math.round(correct / answered * 100) : 0;
