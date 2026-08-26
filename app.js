@@ -36,6 +36,9 @@ function setAuthMode(next) {
 async function init() {
   $("loginTab").onclick = () => setAuthMode("login");
   $("signupTab").onclick = () => setAuthMode("signup");
+  document.querySelectorAll("#nav button[data-view]").forEach(btn => {
+  btn.onclick = () => showView(btn.dataset.view);
+});
 
   $("authForm").addEventListener("submit", async (e) => {
     e.preventDefault();
