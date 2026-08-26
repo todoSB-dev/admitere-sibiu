@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admitere Sibiu — Grile Medicină</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">Admitere <span>Sibiu</span></div>
+    <nav id="nav" class="nav hidden">
+      <button data-view="practice">Grile</button>
+      <button data-view="dashboard">Progres</button>
+      <button data-view="mistakes">Greșelile mele</button>
+      <button id="logoutBtn" class="ghost">Ieșire</button>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section id="authView" class="auth-grid">
+      <div class="hero">
+        <p class="eyebrow">MVP • Admitere Medicină Sibiu</p>
+        <h1>Învață mai inteligent, grilă cu grilă.</h1>
+        <p class="muted">Cont, progres salvat, explicații și lista greșelilor — conectate la Supabase.</p>
+      </div>
+
+      <div class="card auth-card">
+        <div class="tabs">
+          <button id="loginTab" class="tab active">Autentificare</button>
+          <button id="signupTab" class="tab">Cont nou</button>
+        </div>
+
+        <form id="authForm">
+          <label>Email
+            <input id="email" type="email" autocomplete="email" required placeholder="tu@email.ro">
+          </label>
+          <label>Parolă
+            <input id="password" type="password" autocomplete="current-password" required minlength="6" placeholder="Minimum 6 caractere">
+          </label>
+          <label id="nameWrap" class="hidden">Nume
+            <input id="fullName" type="text" autocomplete="name" placeholder="Numele tău">
+          </label>
+          <button class="primary" type="submit" id="authSubmit">Intră în cont</button>
+        </form>
+        <p id="authMessage" class="message"></p>
+      </div>
+    </section>
+
+    <section id="appView" class="hidden">
+      <div class="view" id="practiceView">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Sesiune de antrenament</p>
+            <h2>Grile</h2>
+          </div>
+          <div id="sessionProgress" class="pill">0 / 0</div>
+        </div>
+
+        <div id="questionCard" class="card question-card">
+          <div id="questionMeta" class="question-meta"></div>
+          <h3 id="questionText">Se încarcă...</h3>
+          <div id="options" class="options"></div>
+          <div class="actions">
+            <button id="checkBtn" class="primary" disabled>Verifică răspunsul</button>
+            <button id="nextBtn" class="secondary hidden">Următoarea</button>
+          </div>
+          <div id="feedback" class="feedback hidden"></div>
+        </div>
+      </div>
+
+      <div class="view hidden" id="dashboardView">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Dashboard</p>
+            <h2>Progresul tău</h2>
+          </div>
+        </div>
+        <div class="stats">
+          <div class="stat card"><span>Rezolvate</span><strong id="statAnswered">0</strong></div>
+          <div class="stat card"><span>Corecte</span><strong id="statCorrect">0</strong></div>
+          <div class="stat card"><span>Precizie</span><strong id="statAccuracy">0%</strong></div>
+        </div>
+        <div class="card">
+          <h3>Recomandare</h3>
+          <p id="dashboardHint" class="muted">Rezolvă câteva grile pentru a primi o recomandare.</p>
+        </div>
+      </div>
+
+      <div class="view hidden" id="mistakesView">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Recapitulare</p>
+            <h2>Greșelile mele</h2>
+          </div>
+        </div>
+        <div id="mistakesList" class="list"></div>
+      </div>
+    </section>
+
+    <div id="globalMessage" class="message"></div>
+  </main>
+
+  <footer>Admitere Sibiu • MVP de test</footer>
+  <script src="app.js"></script>
+</body>
+</html>
