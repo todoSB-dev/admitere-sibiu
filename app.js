@@ -200,6 +200,7 @@ async function loadDashboard() {
     .from("answers")
     .select("*")
     .eq("user_id", currentUser.id);
+  alert("ID: " + currentUser.id + "\nRăspunsuri găsite: " + (data?.length ?? "NULL"));
 
   if (error) {
   alert(error.message);
