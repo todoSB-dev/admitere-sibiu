@@ -201,7 +201,10 @@ async function loadDashboard() {
     .select("*")
     .eq("user_id", currentUser.id);
 
-  if (error) return setGlobal(error.message, true);
+  if (error) {
+  alert(error.message);
+  return;
+}
   const answered = data?.length || 0;
   const correct = data?.filter(x => x.is_correct).length || 0;
   const accuracy = answered ? Math.round(correct / answered * 100) : 0;
